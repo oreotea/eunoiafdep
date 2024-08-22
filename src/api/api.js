@@ -1,11 +1,12 @@
 // frontend/src/api/api.js
 import axios from 'axios';
 
-const api = axios.create({
+// Instance for existing backend
+const backendAPI = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
 });
 
-api.interceptors.request.use(config => {
+backendAPI.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -13,7 +14,7 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-api.interceptors.response.use(
+backendAPI.interceptors.response.use(
   response => response,
   error => {
     if (error.response.status === 401) {
@@ -24,4 +25,28 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+// Instance for FastAPI backend (for chat)
+const fastAPI = axios.create({
+  baseURL: process.env.REACT_APP_FASTAPI_URL,
+});
+
+fastAPI.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+fastAPI.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export { backendAPI, fastAPI };

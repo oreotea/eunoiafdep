@@ -1,9 +1,10 @@
+//frontend/src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { Container, Box, Typography, Button, TextField, Divider, IconButton, Grid } from '@mui/material';
 import { Google as GoogleIcon, Apple as AppleIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/api';
+import { backendAPI as api } from '../api/api';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

@@ -1,7 +1,8 @@
+// frontend/src/pages/TermsPage.js
 import React, { useState } from 'react';
-import { Container, Button, Box, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import { Container, Button, Box, Typography, Checkbox, FormControlLabel, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/api';
+import { backendAPI as api } from '../api/api';
 
 const terms = [
   "I understand that people vary in their responses to the app. There are no promises of improvement for users of the app.",
@@ -34,20 +35,30 @@ const TermsPage = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>Terms of Use</Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {terms.map((term, index) => (
-          <FormControlLabel
-            key={index}
-            control={<Checkbox checked={acceptedTerms[index]} onChange={() => handleAcceptTerm(index)} />}
-            label={term}
-          />
-        ))}
-        <Button variant="contained" color="primary" onClick={handleComplete} disabled={!acceptedTerms.every(term => term)}>
-          Complete
-        </Button>
-      </Box>
+    <Container maxWidth="sm" sx={{ mt: 8 }}>
+      <Paper elevation={3} sx={{ padding: 4, backgroundColor: '#D3ECDC' }}>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+          Terms of Use
+        </Typography>
+        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {terms.map((term, index) => (
+            <FormControlLabel
+              key={index}
+              control={<Checkbox checked={acceptedTerms[index]} onChange={() => handleAcceptTerm(index)} />}
+              label={term}
+            />
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleComplete}
+            disabled={!acceptedTerms.every(term => term)}
+            sx={{ mt: 2, backgroundColor: '#4CAF50', '&:hover': { backgroundColor: '#45A049' } }}
+          >
+            Complete
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 };

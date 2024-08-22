@@ -1,17 +1,18 @@
-// frontend/src/pages/HomePage.js
+// frontend/src/pages/TherapyToolsPage.js
 import React, { useState } from 'react';
 import { Box, Typography, IconButton, Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
-import MicIcon from '@mui/icons-material/Mic';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/NSidebar';
+import JournalComponent from '../components/JournalComponent';
+import MoodTrackerComponent from '../components/MoodTrackerComponent';
 
 const drawerWidth = 240;
 
-const HomePage = () => {
+const TherapyToolsPage = () => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -79,12 +80,11 @@ const HomePage = () => {
             </IconButton>
           </Box>
         </Box>
-        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F9F4' }}>
-          <Box sx={{ textAlign: 'center', margin: '0 auto' }}>
-            <IconButton sx={{ backgroundColor: '#D3ECDC', padding: '2rem' }} onClick={() => navigate('/session/start')}>
-              <MicIcon fontSize="large" />
-            </IconButton>
-            <Typography sx={{ marginTop: '1rem', color: 'black' }}>Start Conversation</Typography>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F9F4', padding: 3 }}>
+          <Typography variant="h4" gutterBottom>Therapy Tools</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}>
+            <JournalComponent />
+            <MoodTrackerComponent />
           </Box>
         </Box>
       </Box>
@@ -92,4 +92,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default TherapyToolsPage;

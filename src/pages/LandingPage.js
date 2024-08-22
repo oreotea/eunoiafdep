@@ -1,3 +1,4 @@
+//frontend/src/pages/LandingPage.js
 import React from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';  // Removed Grid from import
 import { motion } from 'framer-motion';
